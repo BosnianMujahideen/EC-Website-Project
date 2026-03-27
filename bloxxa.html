@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Khabib vs Islam</title>
+<style>
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background: linear-gradient(to top, #222, #555);
+    color: white;
+  }
+
+  h1 {
+    margin-top: 20px;
+  }
+
+  .arena {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 60vh;
+  }
+
+  .fighter {
+    transition: transform 0.2s;
+  }
+
+  .fighter img {
+    width: 180px;
+  }
+
+  .health {
+    margin-top: 10px;
+    font-size: 18px;
+  }
+
+  .controls {
+    margin-top: 20px;
+  }
+
+  button {
+    padding: 12px 20px;
+    font-size: 16px;
+    margin: 10px;
+    cursor: pointer;
+    border: none;
+    border-radius: 8px;
+  }
+
+  .khabib { background: #4CAF50; color: white; }
+  .islam { background: #f44336; color: white; }
+
+  .hit {
+    transform: translateX(-20px);
+  }
+
+  .hit-right {
+    transform: translateX(20px);
+  }
+</style>
+</head>
+<body>
+
+<h1>🥊 Khabib vs Islam Fight Simulator</h1>
+
+<div class="arena">
+  <div class="fighter" id="khabib">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/9/9c/Khabib_Nurmagomedov_2019.jpg">
+    <div class="health">Khabib HP: <span id="hpK">100</span></div>
+  </div>
+
+  <div class="fighter" id="islam">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/8/8f/Islam_Makhachev_2022.jpg">
+    <div class="health">Islam HP: <span id="hpI">100</span></div>
+  </div>
+</div>
+
+<div class="controls">
+  <button class="khabib" onclick="punchIslam()">Khabib Punch 👊</button>
+  <button class="islam" onclick="punchKhabib()">Islam Punch 👊</button>
+</div>
+
+<script>
+  let hpK = 100;
+  let hpI = 100;
+
+  function punchIslam() {
+    if (hpI <= 0) return;
+    hpI -= Math.floor(Math.random() * 10) + 5;
+    document.getElementById("hpI").innerText = Math.max(hpI, 0);
+
+    let islam = document.getElementById("islam");
+    islam.classList.add("hit");
+    setTimeout(() => islam.classList.remove("hit"), 200);
+
+    checkWinner();
+  }
+
+  function punchKhabib() {
+    if (hpK <= 0) return;
+    hpK -= Math.floor(Math.random() * 10) + 5;
+    document.getElementById("hpK").innerText = Math.max(hpK, 0);
+
+    let khabib = document.getElementById("khabib");
+    khabib.classList.add("hit-right");
+    setTimeout(() => khabib.classList.remove("hit-right"), 200);
+
+    checkWinner();
+  }
+
+  function checkWinner() {
+    if (hpK <= 0) {
+      alert("Islam Wins! 🏆");
+    }
+    if (hpI <= 0) {
+      alert("Khabib Wins! 🏆");
+    }
+  }
+</script>
+
+</body>
+</html>
