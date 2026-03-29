@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Khabib vs Islam Fight</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        background: #111;
+        color: white;
+    }
+
+    .arena {
+        display: flex;
+        justify-content: space-around;
+        margin-top: 50px;
+    }
+
+    .fighter {
+        width: 200px;
+    }
+
+    .name {
+        font-size: 20px;
+        margin-bottom: 10px;
+    }
+
+    .health {
+        height: 20px;
+        background: red;
+        margin-bottom: 10px;
+    }
+
+    .emoji {
+        font-size: 60px;
+        transition: transform 0.2s;
+    }
+
+    .punch {
+        transform: translateX(30px);
+    }
+
+    button {
+        margin-top: 20px;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+    }
+</style>
+</head>
+<body>
+
+<h1>🥊 Khabib vs Islam 🥊</h1>
+
+<div class="arena">
+    <div class="fighter">
+        <div class="name">Khabib</div>
+        <div class="health" id="khabibHealth"></div>
+        <div class="emoji" id="khabib">🤜</div>
+        <button onclick="attack('khabib')">Punch</button>
+    </div>
+
+    <div class="fighter">
+        <div class="name">Islam</div>
+        <div class="health" id="islamHealth"></div>
+        <div class="emoji" id="islam">🤛</div>
+        <button onclick="attack('islam')">Punch</button>
+    </div>
+</div>
+
+<h2 id="result"></h2>
+
+<script>
+let khabibHP = 100;
+let islamHP = 100;
+
+function updateHealth() {
+    document.getElementById("khabibHealth").style.width = khabibHP + "%";
+    document.getElementById("islamHealth").style.width = islamHP + "%";
+}
+
+function attack(attacker) {
+    if (khabibHP <= 0 || islamHP <= 0) return;
+
+    let damage = Math.floor(Math.random() * 15) + 5;
+
+    if (attacker === "khabib") {
+        islamHP -= damage;
+        animate("khabib");
+    } else {
+        khabibHP -= damage;
+        animate("islam");
+    }
+
+    updateHealth();
+    checkWinner();
+}
+
+function animate(id) {
+    let el = document.getElementById(id);
+    el.classList.add("punch");
+
+    setTimeout(() => {
+        el.classList.remove("punch");
+    }, 200);
+}
+
+function checkWinner() {
+    if (khabibHP <= 0) {
+        document.getElementById("result").innerText = "Islam Wins! 🏆";
+    }
+    if (islamHP <= 0) {
+        document.getElementById("result").innerText = "Khabib Wins! 🏆";
+    }
+}
+
+updateHealth();
+</script>
+
+</body>
+</html>
