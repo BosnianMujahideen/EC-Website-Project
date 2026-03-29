@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Khabib vs Islam Fight</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        background: #111;
+        color: white;
+    }
+
+    .arena {
+        display: flex;
+        justify-content: space-around;
+        margin-top: 40px;
+        align-items: center;
+    }
+
+    .fighter {
+        width: 220px;
+        position: relative;
+    }
+
+    .fighter img {
+        width: 100%;
+        border-radius: 10px;
+    }
+
+    .name {
+        font-size: 20px;
+        margin-bottom: 10px;
+    }
+
+    .health {
+        height: 20px;
+        background: red;
+        margin-bottom: 10px;
+        transition: width 0.3s;
+    }
+
+    .punch-emoji {
+        position: absolute;
+        top: 50%;
+        font-size: 40px;
+        opacity: 0;
+        transition: all 0.2s;
+    }
+
+    .left-punch {
+        left: -40px;
+    }
+
+    .right-punch {
+        right: -40px;
+    }
+
+    .show {
+        opacity: 1;
+        transform: translateX(20px);
+    }
+
+    button {
+        margin-top: 10px;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+    }
+</style>
+</head>
+<body>
+
+<h1>🥊 Khabib vs Islam 🥊</h1>
+
+<div class="arena">
+
+    <!-- KHABIB -->
+    <div class="fighter">
+        <div class="name">Khabib</div>
+        <div class="health" id="khabibHealth"></div>
+
+        <!-- REPLACE IMAGE FILE -->
+        <img src="khabib.jpg" alt="Khabib">
+
+        <div class="punch-emoji left-punch" id="khabibPunch">🤜</div>
+        <button onclick="attack('khabib')">Punch</button>
+    </div>
+
+    <!-- ISLAM -->
+    <div class="fighter">
+        <div class="name">Islam</div>
+        <div class="health" id="islamHealth"></div>
+
+        <!-- REPLACE IMAGE FILE -->
+        <img src="islam.jpg" alt="Islam">
+
+        <div class="punch-emoji right-punch" id="islamPunch">🤛</div>
+        <button onclick="attack('islam')">Punch</button>
+    </div>
+
+</div>
+
+<h2 id="result"></h2>
+
+<script>
+let khabibHP = 100;
+let islamHP = 100;
+
+function updateHealth() {
+    document.getElementById("khabibHealth").style.width = khabibHP + "%";
+    document.getElementById("islamHealth").style.width = islamHP + "%";
+}
+
+function attack(attacker) {
+    if (khabibHP <= 0 || islamHP <= 0) return;
+
+    let damage = Math.floor(Math.random() * 15) + 5;
+
+    if (attacker === "khabib") {
+        islamHP -= damage;
+        animatePunch("khabibPunch");
+    } else {
+        khabibHP -= damage;
+        animatePunch("islamPunch");
+    }
+
+    updateHealth();
+    checkWinner();
+}
+
+function animatePunch(id) {
+    let el = document.getElementById(id);
+    el.classList.add("show");
+
+    setTimeout(() => {
+        el.classList.remove("show");
+    }, 200);
+}
+
+function checkWinner() {
+    if (khabibHP <= 0) {
+        document.getElementById("result").innerText = "Islam Wins! 🏆";
+    }
+    if (islamHP <= 0) {
+        document.getElementById("result").innerText = "Khabib Wins! 🏆";
+    }
+}
+
+updateHealth();
+</script>
+
+</body>
+</html>
